@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Strict//EN' 'http://www.w3.org/TR/html4/strict.dtd'>
+<html>
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+<title></title>
+</head>
+<script type="text/javascript" src="js/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="js/vue/vue.min.js"></script>
+<script type="text/javascript" src="js/axios/axios.min.js"></script>
+<script type="text/javascript" src="js/fetch/fetch.min.js"></script>
+<script type="text/javascript" src="js/checkcookie.js"></script>
+<body>
+	<div id="d1">
+		<h1>{{qrobject.name}}</h1>
+		<div id="d2">{{qrobject.description}}</div>
+	</div>	
+	<script>
+		var id = null;
+		new Vue({
+		    el:'div#d1',
+		    data:{
+			    qrobject:{name:"ddd", description:"asd"}
+		    },
+			methods:{
+				getid: function(id){
+					return id;
+				},
+				getname: function(name){
+					return name;
+				},
+				getparamid: function(){
+		    		//获取url中所有的参数
+		    		var param = location.search ;
+					var paramobj = new String(param);
+			    	var len = paramobj.length ;
+			    	if(len == 0){
+			    		self.id = null; 
+			    		return ;
+			    	}
+					paramobj = paramobj.substring (1,len);
+					var arrays = paramobj.split("&");
+					for(i in arrays){
+						var array = arrays[i].split("=");
+						if(array[0] == "id")
+							self.id = array[1];
+					}
+		    	}
+			},
+		    mounted:function(){ //mounted　表示这个 Vue 对象加载成功了
+		        self=this;
+		    	self.getparamid();
+		    	var url = "/qrobjects/" + self.id ;
+		        fetch(url).then(function(response) {
+		            response.json().then(function (jsonObject) {
+		                self.qrobject = jsonObject    //object对象
+		            })
+		        }).catch(function(err){
+		            console.log("Fetch错误:"+err);
+		        })
+		    }
+		    
+		})
+	</script>
+	<style>
+		h1{
+			font-size:300%;
+		}
+		div#d2{
+			font-size:200%;
+			text-indent:100px;  /*首行缩进*/
+		}
+	</style>
+</body>
+</html>
