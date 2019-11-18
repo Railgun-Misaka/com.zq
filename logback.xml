@@ -9,7 +9,7 @@
         <!--定义了一个过滤器,在LEVEL之下的日志输出不会被打印出来-->
         <!--这里定义了DEBUG，也就是控制台不会输出比DEBUG级别小的日志-->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
+            <level>debug</level>
         </filter>
         <!-- encoder 默认配置为PatternLayoutEncoder -->
         <!--定义控制台输出格式-->
@@ -24,7 +24,7 @@
         <!--比如通过 java -Dscheduler.manager.server.home=/path/to XXXX 配置该属性-->
         <file>logs/${app.name}.log</file>
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
+            <level>debug</level>
         </filter>
         <!--定义日志滚动的策略-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -47,7 +47,7 @@
     </appender>
 
     <!--root是默认的logger 这里设定输出级别是debug-->
-    <root level="debug">
+    <root level="info">
         <!--定义了两个appender，日志会通过往这两个appender里面写-->
         <appender-ref ref="stdout"/>
         <appender-ref ref="file"/>

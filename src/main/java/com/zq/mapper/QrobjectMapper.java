@@ -19,10 +19,10 @@ public interface QrobjectMapper {
 	@Select("select * from qrobject")
 	public List<Qrobject> list();
 	
-	@Insert("insert into qrobject values (null, #{name}, #{description}, 1)")
+	@Insert("insert into qrobject values (#{id}, #{name}, #{description}, 1)")
 	public int add(Qrobject qr);
 	
-	@Delete("delete from qrobject where id = #{id}")
+	@Delete("delete from qrobject where id = #{id} and version = 1")
 	public int delete(int id);
 	
 	@Update("update qrobject set name = #{name}, description = #{description}, version = 0 where id = #{id} and version = 1")
